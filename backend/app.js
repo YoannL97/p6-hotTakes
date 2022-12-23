@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 require('dotenv').config();
 const xss = require('xss-clean');
-const helmet = require('helmet');
+//const helmet = require('helmet');
 const rateLimit = require("express-rate-limit");
 
 
@@ -26,10 +26,11 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
 });
+
 app.use(limiter);
 
 app.use(xss());
-app.use(helmet())
+//app.use(helmet())
 
 
 app.use((req, res, next) => {
