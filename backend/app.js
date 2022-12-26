@@ -5,7 +5,10 @@ const path = require('path');
 require('dotenv').config();
 const xss = require('xss-clean');
 //const helmet = require('helmet');
+const hpp = require("hpp");
+const mongoSanitize = require("mongo-sanitize");
 const rateLimit = require("express-rate-limit");
+
 
 
 const sauceRoutes = require('./routes/sauce');
@@ -29,7 +32,14 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
+// protège contre les attaques xss
 app.use(xss());
+// protège contre les attaques http
+app.use(hpp())
+// protège contre les injections 
+app.use(mongoSanitize());
+
+
 //app.use(helmet())
 
 
